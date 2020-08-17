@@ -2,9 +2,10 @@
 from influxdb import InfluxDBClient
 client = InfluxDBClient(host='solaranzeige', port=8086)
 client.switch_database('solaranzeige')
-tempschwelle = 29.5
+tempschwelle = 38.5
 leistungsschwelle = 800
-
+tempcount = 0
+leistungscount = 0
 rs = client.query('SELECT last("Temperatur") from Service')
 # print ("Result: {0}".format(rs))
 rs2 = client.query('SELECT last("Leistung") from AC')
@@ -19,9 +20,14 @@ for item2 in points:
 
 if (item['last']) > tempschwelle:
     print ('Temperatur > ', tempschwelle)
+    tempcount = 1
 
 if (item2['last']) > leistungsschwelle:
     print ('Leistung > ', leistungsschwelle)
+    leistungscount = 1
+
+if tempcount == 1 and leistungscount == 1:
+    print ('Schalte Lüfter ein!')
 
 
 #temp = rs.items()
