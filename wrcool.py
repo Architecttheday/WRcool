@@ -51,7 +51,7 @@ while True:
             time.sleep(4)
             mqclient.disconnect() #disconnect
 
-        fo = open("Schaltzustaende.txt", "a+")
+        fo = open("/var/log/Schaltzustaende.txt", "a+")
         text2write = (time.strftime("%Y-%m-%d_%H:%M:%S" , lt) + ";" + str(tempschwelle) + ";" + str(item['last']) + ";" + str(tempcount) + ";" + str(leistungsschwelle) + ";" + str(item2['last']) + ";" + str(leistungscount) + ";" + luefterstatus + "\n")
         #text2write = (str(tempschwelle) + ";" + str(item['last']) + ";" +  str(tempcount))
         print (text2write)
